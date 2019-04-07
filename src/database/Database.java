@@ -9,11 +9,17 @@ public class Database {
     private File database;
     private String sql;
     private String url;
+    private String databaseName;
 
     public Database(String name) {
         this.database = new File(name + ".db");
         this.sql = name + ".sql";
         this.url = "jdbc:sqlite:" + database.getPath();
+        this.databaseName = name;
+    }
+
+    public String getDatabaseName() {
+        return databaseName;
     }
 
     public File getDatabase() {

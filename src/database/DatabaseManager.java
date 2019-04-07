@@ -5,7 +5,7 @@ import java.sql.*;
 // Used this as a reference when creating this class
 // http://www.sqlitetutorial.net/sqlite-java/
 
-public class DatabaseManager implements IDatabaseManager {
+public class DatabaseManager {
 
     private Connection connect(Database db) {
         Connection connection = null;
@@ -17,28 +17,28 @@ public class DatabaseManager implements IDatabaseManager {
         return connection;
     }
 
-    public void createTable(Database db) {
+    public void createTable(Database db, String data) {
 
-        String sql
+        /*String sql
             = "CREATE TABLE IF NOT EXISTS warehouses (\n"
             + "	id integer PRIMARY KEY,\n"
             + "	name text NOT NULL,\n"
             + "	capacity real\n"
             + ");"
-        ;
+        ;*/
 
         try (
             Connection connection = DriverManager.getConnection(db.getUrl());
             Statement statement = connection.createStatement()
         ) {
-            statement.execute(sql);
+            statement.execute(data);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void insertTable(Database db, String name, double capacity) {
-        String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
+        String sql = "INSERT INTO "+ db.getDatabaseName() + "(name, capacity) VALUES(?,?)";
 
         try(
             Connection connection = this.connect(db);
@@ -53,7 +53,7 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     public void deleteTable(Database db, int id) {
-        String sql = "DELETE FROM warehouses WHERE id = ?";
+        String sql = "DELETE FROM " + db.getDatabaseName() + " WHERE id = ?";
 
         try (
             Connection connection = this.connect(db);
@@ -67,7 +67,7 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     public void updateTable(Database db, int id, String name, double capacity) {
-        String sql = "UPDATE warehouses SET name = ? , " + "capacity = ? " + "WHERE id = ?";
+        String sql = "UPDATE " + db.getDatabaseName() + " SET name = ? , " + "capacity = ? " + "WHERE id = ?";
 
         try(
             Connection connection = this.connect(db);
@@ -84,7 +84,7 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
     public void selectAll(Database db) {
-        String sql = "SELECT id, name, capacity FROM warehouses";
+        String sql = "SELECT id, name, capacity FROM " + db.getDatabaseName();
 
         try (
              Connection connection = this.connect(db);

@@ -2,6 +2,12 @@
   <dictionary name="siy005">
     <words>
       <w>jdbc</w>
+      <w>karakter</w>
+      <w>kode</w>
+      <w>kull</w>
+      <w>kurs</w>
+      <w>navn</w>
+      <w>skole</w>
       <w>sqlite</w>
     </words>
   </dictionary>
