@@ -50,7 +50,8 @@ public class TableController implements Initializable {
                 );
             }
         } catch (SQLException e) {
-            System.out.println(TableController.class.getName());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         col_kurskode.setCellValueFactory(new PropertyValueFactory<>("kurskode"));

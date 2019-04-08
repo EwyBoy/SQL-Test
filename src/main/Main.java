@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../fx/fxml/student.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fx/fxml/kull.fxml"));
         primaryStage.setTitle("SQL");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
@@ -89,6 +89,9 @@ public class Main extends Application {
 
         databaseManager.insertTable(database, "Student", "nr, navn, kull", "'0', 'Arne Treholt', '2019H'");
         databaseManager.insertTable(database, "Student", "nr, navn, kull", "'1', 'Katja Kai', '2019V'");
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'4', 'Maja Kai', '2019V'");
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'5', 'Oto Kai', '2019V'");
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'6', 'Greger Kai', '2019V'");
         databaseManager.insertTable(database, "Student", "nr, navn, kull", "'2', 'Bente Bent', '2020H'");
 
         databaseManager.insertTable(database, "Karakter", "kurskode, karakter, year, student", "'INFO233', 'A', 2019, 0");

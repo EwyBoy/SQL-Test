@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controllers.KullController">
+   <children>
+      <TableView fx:id="k_table" layoutX="32.0" layoutY="75.0" prefHeight="301.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="tab_student_list" prefWidth="199.0" text="list" />
+        </columns>
+      </TableView>
+      <Accordion layoutX="281.0" layoutY="78.0" />
+      <TitledPane animated="false" layoutX="323.0" layoutY="75.0" prefHeight="301.0" prefWidth="249.0" text="Student Info:">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="266.0" prefWidth="247.0">
+               <children>
+                  <TextField fx:id="f_name" alignment="CENTER" layoutX="60.0" layoutY="23.0" prefHeight="25.0" prefWidth="173.0" />
+                  <Text layoutX="17.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" />
+                  <TextField fx:id="f_nr" alignment="CENTER" layoutX="60.0" layoutY="66.0" prefHeight="25.0" prefWidth="173.0" />
+                  <Text layoutX="17.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nr" />
+                  <TextField fx:id="f_kull" alignment="CENTER" layoutX="60.0" layoutY="113.0" prefHeight="25.0" prefWidth="173.0" />
+                  <Text layoutX="17.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kull" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <Text layoutX="32.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deloppgave G">
+         <font>
+            <Font name="Comic Sans MS Bold" size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

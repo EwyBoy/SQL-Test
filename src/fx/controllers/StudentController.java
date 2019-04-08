@@ -62,18 +62,17 @@ public class StudentController implements Initializable {
             Statement statement = connection.createStatement()
         ) {
 
-            ResultSet kurskode = statement.executeQuery("SELECT kurskode FROM Karakter WHERE student=1;");
+            ResultSet kursnavn = statement.executeQuery("SELECT kurskode FROM Karakter WHERE student=1;");
             ResultSet kurs = statement.executeQuery("SELECT Kurs.kode FROM Kurs, Skole, Kull, Student WHERE Kurs.skole=Skole.navn AND Kull.skole=Skole.navn AND Kull.kode = kull AND Student.nr=1;");
             ResultSet karakter = statement.executeQuery("SELECT karakter FROM Karakter WHERE student=1;");
             ResultSet year = statement.executeQuery("SELECT year FROM Karakter WHERE student=1;");
 
             tableOneList.add(
                     new ModelStudentOne(
-                            kurskode.getString("kursnavn"),
-                            kurs.getString("kurs"),
+                            "test",     /*kursnavn.getString("kursnavn"),*/
+                            "test",        /*kurs.getString("kurs"),*/
                             karakter.getString("karakter"),
-                            year.getString("year")
-                    )
+                            year.getString("year"))
             );
 
             ResultSet skole = statement.executeQuery("SELECT skole FROM Kull WHERE skole='UiB';");
@@ -82,7 +81,7 @@ public class StudentController implements Initializable {
             tableTwoList.add(
                     new ModelStudentTwo(
                             skole.getString("skole"),
-                            kull.getString("kull")
+                            kull.getString("skole")
                     )
             );
 
