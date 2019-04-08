@@ -14,21 +14,21 @@ import java.sql.SQLException;
 
 public class Main extends Application {
 
+    public static Database database = new Database("database");
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fx/fxml/student.fxml"));
         primaryStage.setTitle("SQL");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
 
-    private static void initDatabase() {
+    public static void initDatabase(Database database, boolean populate) {
         try {
-            Database database = new Database("database");
             Connection connection = DriverManager.getConnection(database.getUrl());
             System.out.println("Connection established (Read with british accent)");
             DatabaseManager databaseManager = new DatabaseManager();
-
 
             databaseManager.createTable(database,
                     "CREATE TABLE IF NOT EXISTS Skole (\n"
@@ -55,11 +55,10 @@ public class Main extends Application {
 
             databaseManager.createTable(database,
                     "CREATE TABLE IF NOT EXISTS Karakter (\n"
-                            + "id integer PRIMARY KEY,\n"
+                            + "kurskode text NOT NULL REFERENCES Kurs(kode),\n"
                             + "karakter text NOT NULL,\n"
-                            + "ar integer NOT NULL,\n"
-                            + "student text NOT NULL,\n"
-                            + "FOREIGN KEY (student) REFERENCES Student(nr)\n"
+                            + "year integer NOT NULL,\n"
+                            + "student text NOT NULL REFERENCES Student(nr)\n"
                             + ");"
             );
 
@@ -67,20 +66,43 @@ public class Main extends Application {
                     "CREATE TABLE IF NOT EXISTS Kurs (\n"
                             + "kode text PRIMARY KEY,\n"
                             + "navn text NOT NULL,\n"
-                            + "skole text NOT NULL,\n"
-                            + "FOREIGN KEY (skole) REFERENCES Skole(navn),\n"
-                            + "karakter integer NOT NULL,\n"
-                            + "FOREIGN KEY (karakter) REFERENCES Karakter(id)\n"
+                            + "skole text NOT NULL REFERENCES Skole(navn)\n"
                             + ");"
             );
+
+            if (populate) populateDatabase(database, databaseManager);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    private static void populateDatabase(Database database, DatabaseManager databaseManager) {
+
+        databaseManager.insertTable(database, "Skole", "navn", "'UiB'");
+        databaseManager.insertTable(database, "Skole", "navn", "'UiO'");
+        databaseManager.insertTable(database, "Skole", "navn", "'UiS'");
+
+        databaseManager.insertTable(database, "Kull", "kode, skole", "'2019H', 'UiB'");
+        databaseManager.insertTable(database, "Kull", "kode, skole", "'2019V', 'UiO'");
+        databaseManager.insertTable(database, "Kull", "kode, skole", "'2020H', 'UiS'");
+
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'0', 'Arne Treholt', '2019H'");
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'1', 'Katja Kai', '2019V'");
+        databaseManager.insertTable(database, "Student", "nr, navn, kull", "'2', 'Bente Bent', '2020H'");
+
+        databaseManager.insertTable(database, "Karakter", "kurskode, karakter, year, student", "'INFO233', 'A', 2019, 0");
+        databaseManager.insertTable(database, "Karakter", "kurskode, karakter, year, student", "'INFO262', 'B', 2019, 1");
+        databaseManager.insertTable(database, "Karakter", "kurskode, karakter, year, student", "'INFO284', 'C', 2019, 2");
+
+        databaseManager.insertTable(database, "Kurs","kode, navn, skole","'INFO233', 'Advanced Programming', 'UiB'");
+        databaseManager.insertTable(database, "Kurs","kode, navn, skole","'INFO262', 'Interaction Design', 'UiO'");
+        databaseManager.insertTable(database, "Kurs","kode, navn, skole","'INFO284', 'Machine Learning', 'UiS'");
+    }
+
     public static void main(String[] args) {
-        initDatabase();
+
+        initDatabase(database,true);
         launch(args);
     }
 

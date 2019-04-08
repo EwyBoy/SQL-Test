@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class DatabaseManager {
 
-    private Connection connect(Database db) {
+    public static Connection connect(Database db) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(db.getUrl());
@@ -37,16 +37,12 @@ public class DatabaseManager {
         }
     }
 
-    public void insertTable(Database db, String name, double capacity) {
-        String sql = "INSERT INTO "+ db.getDatabaseName() + "(name, capacity) VALUES(?,?)";
-
+    public void insertTable(Database database, String tableName, String data, String values) {
         try(
-            Connection connection = this.connect(db);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)
+            Connection connection = connect(database);
+            Statement statement = connection.createStatement()
         ) {
-            preparedStatement.setString(1, name);
-            preparedStatement.setDouble(2, capacity);
-            preparedStatement.executeUpdate();
+            statement.execute("INSERT INTO " + tableName + "(" + data + ") VALUES (" + values + ");");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
