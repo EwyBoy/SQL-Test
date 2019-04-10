@@ -18,15 +18,6 @@ public class DatabaseManager {
     }
 
     public void createTable(Database db, String data) {
-
-        /*String sql
-            = "CREATE TABLE IF NOT EXISTS warehouses (\n"
-            + "	id integer PRIMARY KEY,\n"
-            + "	name text NOT NULL,\n"
-            + "	capacity real\n"
-            + ");"
-        ;*/
-
         try (
             Connection connection = DriverManager.getConnection(db.getUrl());
             Statement statement = connection.createStatement()

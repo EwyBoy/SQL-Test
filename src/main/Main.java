@@ -11,17 +11,34 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main extends Application {
 
+    /*
+     *  Usually sits next to David Kvasnes Olsen and Hallvard Moan Kristiansen,
+     *  our code could have similarities from shearing knowledge.
+     *
+     *  Here is a link to MY GitHub in case someone is looking at my src and not referencing me in their sources:
+     *  https://github.com/EwyBoy/SQL-Test
+     *
+     *  God påske!
+     *
+     */
+
     public static Database database = new Database("database");
+    private static String resource;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../fx/fxml/kull.fxml"));
-        primaryStage.setTitle("SQL");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public void start(Stage primaryStage) throws Exception {
+
+        if (resource != null) {
+            Parent root = FXMLLoader.load(getClass().getResource("../fx/fxml/" + resource));
+            primaryStage.setTitle("SQL");
+            primaryStage.setScene(new Scene(root, 720, 540));
+            primaryStage.show();
+        }
+
     }
 
     public static void initDatabase(Database database, boolean populate) {
@@ -104,9 +121,37 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        Scanner scanner = new Scanner(System.in);
+        runApplication(scanner);
         initDatabase(database,true);
         launch(args);
+    }
+
+    private static void runApplication(Scanner scanner) {
+        System.out.println("Type '1' to launch the test data table");
+        System.out.println("Type '2' to launch Task E window");
+        System.out.println("Type '3' to launch Task G window");
+        System.out.println("Info: You may have to delete the database for it work properly after each launch..");
+
+        String option = scanner.nextLine().toLowerCase();
+
+        if (option.contentEquals("1")) {
+
+            resource = "sample.fxml";
+
+        } else if (option.contentEquals("2")) {
+
+            resource = "student.fxml";
+
+        } else if (option.contentEquals("3")) {
+
+            resource = "kull.fxml";
+
+        } else {
+
+            resource = "sample.fxml";
+
+        }
     }
 
 }

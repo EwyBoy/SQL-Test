@@ -69,9 +69,9 @@ public class StudentController implements Initializable {
 
             tableOneList.add(
                     new ModelStudentOne(
-                            "test",     /*kursnavn.getString("kursnavn"),*/
-                            "test",        /*kurs.getString("kurs"),*/
-                            karakter.getString("karakter"),
+                            "Avansert Programmering",     /*kursnavn.getString("kursnavn"),*/
+                            "INFO-233",        /*kurs.getString("kurs"),*/
+                            "C", /*karakter.getString("karakter"),*/
                             year.getString("year"))
             );
 
@@ -81,7 +81,7 @@ public class StudentController implements Initializable {
             tableTwoList.add(
                     new ModelStudentTwo(
                             skole.getString("skole"),
-                            kull.getString("skole")
+                            "2019V"/*kull.getString("skole")*/
                     )
             );
 
